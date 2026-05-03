@@ -5,3 +5,17 @@ This repository provides a reproducible workflow for analysing fragmented daily 
 
 In addition to supporting the associated study for Grenada, the repository delivers the first island-wide generalized extreme value analysis of Grenadian rainfall currently assembled in this form, including spatially coherent return-level maps and associated uncertainty estimates. Although developed for Grenada, the workflow is designed to be transferable to other data-limited regions where rainfall records are sparse, incomplete, and spatially uneven.
 
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AaronJR474/rain-corr-geva-bayes.git
+   cd rain-corr-geva-bayes
+   ```
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   ```bash
+   pip install "git+https://github.com/AaronJR474/VarioCorreKrigE.git#egg=VarioCorreKrigE[bayesmcmc]"
+   ```
