@@ -11,6 +11,20 @@ Interactive daily rainfall extreme maps for Grenada are available below:
 
 2. [ICCK MM2 rainfall extreme maps (GEV and GPD) using the full-dataset spatial correlation model](https://aaronjr474.github.io/rain-corr-geva-bayes/Maps/GEVA_Dtot_OCCKII.html)
 
+## How to cite
+
+The raw daily rainfall observations used in this repository were obtained from the National Water and Sewerage Authority, Grenada (NAWASA) and the Grenada Airports Authority (GAA). The cleaned and curated rainfall archive compiled for this study is referred to as the **Grenada Daily Rainfall Database (GRD DRDB) v1.0**. If you use this dataset, please cite it as:
+
+```bash
+
+```
+
+The analysis products generated in this repository for Grenada, including the imputed rainfall dataset, spatial correlation model summaries, extreme rainfall summaries, and mapped outputs, are provided in the [Ouputs](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs) directory. If you use the code, derived outputs, or workflow implemented in this repository, please cite the repository as:
+
+```bash
+
+```
+
 ## Installation
 1. Clone the repository:
    ```bash
@@ -25,3 +39,7 @@ Interactive daily rainfall extreme maps for Grenada are available below:
    ```bash
    pip install "git+https://github.com/AaronJR474/VarioCorreKrigE.git#egg=VarioCorreKrigE[bayesmcmc]"
    ```
+
+## Utilizing the package
+
+The package is broken down into Jupyter notebooks each of which are self-contained and only relies on the helpers: [corr_imput_utilities.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/corr_imput_utilities.py) and [return_levels.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/return_levels.py). 
