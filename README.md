@@ -48,7 +48,7 @@ The repository is organized around a set of self-contained Jupyter notebooks, ea
 
 ### Step 1: Site-specific correlation analysis, Bayesian stationary and non-stationary spatial correlation model development, and data imputation
 
-There are two notebooks for this step. One uses the [80–20 train-test split](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/CORR_IMPUT_D80_D20.ipynb) for Bayesian spatial correlation model development, while the other uses the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/CORR_IMPUT_Dtot.ipynb). In the case of the latter, the notebook also includes temporally non-stationary analysis in which spatial correlation models are developed on a per-month basis, motivated by the site-specific correlation structure which exhibited temporal non-stationarity across months. The non-stationary spatial correlation model uses elevation as a secondary covariate and, when paired with ordinary kriging (OK), appears to provide the strongest performance relative to the deterministic and machine-learning-based methods considered.
+There are two notebooks for this step. One uses the [80–20 train-test split](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/CORR_IMPUT_D80_D20.ipynb) for Bayesian spatial correlation model development, while the other uses the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/CORR_IMPUT_Dtot.ipynb). In the case of the latter, the notebook also includes temporally non-stationary analysis in which spatial correlation models are developed on a per-month basis, motivated by the site-specific correlation structure which exhibited temporal non-stationarity across months. The non-stationary spatial correlation model (Model EElev) uses elevation as a secondary covariate and, when paired with ordinary kriging (OK), appears to provide the strongest performance relative to the deterministic and machine-learning-based methods considered.
 
 Imputed datasets are provided for the stationary spatial correlation model (Model E) developed on the [80–20 train-test dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELE_FINAL_n6_thr25mm_var0p25.csv) and the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELE_FINAL_n6_thr25mm_var0p25_full.csv), as well as for the non-stationary spatial correlation model (Model EElev) for the [80–20 train-test dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELElev_FINAL_n6_thr25mm_var0p25.csv) and the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELElev_FINAL_n6_thr25mm_var0p25_full.csv).
 
@@ -73,6 +73,14 @@ This step involves the computation of return levels for 5, 10, 25, 50, 75, and 1
 ### Step 6: GEVA map creation
 
 GEVA maps are created using Ordinary Cokriging and Intrinsic Collocated Cokriging Markov Model II based on return levels derived from the [80–20 train-test Model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_D80_D20.ipynb) and the [full dataset Model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_Dtot.ipynb). The mapped values are provided [here under filenames ending in _summary.csv](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs).
+
+![gevgpd_mean](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/mean_gev_gpd_tr10_25_50.png)
+
+**Figure 1.** Mean predicted daily rainfall extremes across Grenada for the GEV (top row) and GPD (bottom row) models at return periods of 10 years (left), 25 years (middle), and 50 years (right).
+
+![gevgpd_std](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/sigma_gev_gpd_tr10_25_50.png)
+
+**Figure 2.** Standard deviation of predicted daily rainfall extremes across Grenada for the GEV (top row) and GPD (bottom row) models at return periods of 10 years (left), 25 years (middle), and 50 years (right).
 
 ## References
 
