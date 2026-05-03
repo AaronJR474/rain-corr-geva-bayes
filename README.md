@@ -1,11 +1,11 @@
 ![Cover](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Data/grenada_caribbean_map.png)
 # rain-corr-geva-bayes: Rainfall Correlation and Generalized Extreme Value Analysis using Bayesian Inference - Application to Grenada
 
-This repository provides a reproducible workflow for analysing fragmented daily rainfall records in data-limited settings. It implements a site-specific correlation framework to diagnose the spatial structure and relative non-stationarity of daily rainfall, and uses Bayesian stationary and non-stationary spatial correlation models within ordinary kriging for rainfall imputation. For comparison, simpler deterministic imputation approaches are also evaluated, including nearest-neighbour distance (NND) and inverse-distance weighting (IDW), the latter implemented through a linear radial basis function. The imputed rainfall archive is then used within Bayesian generalized extreme value (GEV) and generalized Pareto (GPD) analyses to estimate rainfall extremes and develop multi-station intensity-duration-frequency (IDF) relationships. 
+This repository provides a reproducible workflow for analysing fragmented daily rainfall records in data-limited settings, with application to Grenada. It implements a site-specific correlation framework to diagnose the spatial structure and relative non-stationarity of daily rainfall, and uses Bayesian stationary and non-stationary spatial correlation models within ordinary kriging for rainfall imputation. For comparison, simpler deterministic imputation approaches are also evaluated, including nearest-neighbour distance (NND) and inverse-distance weighting (IDW), the latter implemented through a linear radial basis function. The imputed rainfall archive is then used within Bayesian generalized extreme value (GEV) and generalized Pareto (GPD) analyses to estimate rainfall extremes and develop multi-station intensity-duration-frequency (IDF) relationships. 
 
 In addition to supporting the associated study for Grenada, the repository delivers the first island-wide generalized extreme value analysis of Grenadian rainfall currently assembled in this form, including spatially coherent return-level [maps](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Maps) and associated uncertainty estimates. Although developed for Grenada, the workflow is designed to be transferable to other data-limited regions where rainfall records are sparse, incomplete, and spatially uneven.
 
-**All Bayesian Inference Markov Chain Monte Carlo (MCMC) analysis were conducted using the Python package [numpyro](https://num.pyro.ai/en/stable/).**
+**All Bayesian inference Markov chain Monte Carlo (MCMC) analyses were conducted using the Python package [NumPyro](https://num.pyro.ai/en/stable/).**
 
 Interactive daily rainfall extreme maps for Grenada are available below:
 
@@ -17,13 +17,13 @@ Interactive daily rainfall extreme maps for Grenada are available below:
 
 The raw daily rainfall observations used in this repository were obtained from the National Water and Sewerage Authority, Grenada (NAWASA) and the Grenada Airports Authority (GAA). The cleaned and curated rainfall archive compiled for this study is referred to as the **Grenada Daily Rainfall Database (GRD DRDB) v1.0**. If you use this dataset, please cite it as:
 
-```bash
+```text
 
 ```
 
-The analysis products generated in this repository for Grenada, including the imputed rainfall dataset, spatial correlation model summaries, extreme rainfall summaries, and [mapped]((https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Maps)) outputs, are provided in the [Ouputs](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs) directory. If you use the code, derived outputs, or workflow implemented in this repository, please cite the repository as:
+The analysis products generated in this repository for Grenada, including the imputed rainfall dataset, spatial correlation model summaries, extreme rainfall summaries, and [mapped](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Maps) outputs, are provided in the [Outputs](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs) directory. If you use the code, derived outputs, or workflow implemented in this repository, please cite the repository as:
 
-```bash
+```text
 
 ```
 
@@ -42,7 +42,7 @@ The analysis products generated in this repository for Grenada, including the im
    pip install "git+https://github.com/AaronJR474/VarioCorreKrigE.git#egg=VarioCorreKrigE[bayesmcmc]"
    ```
 
-## Utilizing the repository
+## Workflow (Utilizing the repository)
 
 The repository is organized around a set of self-contained Jupyter notebooks, each supported primarily by the helper modules [corr_imput_utilities.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/corr_imput_utilities.py) and [return_levels.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/return_levels.py). In the context of the Grenada application, the workflow is broken down into the following steps.
 
@@ -68,11 +68,11 @@ The [priors notebook](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/ma
 
 ### Step 5: GEVA geostatistical analysis using VarioCorreKrigE
 
-This step involves the computation of return levels for 5, 10, 25, 50, 75, and 100 years using the imputed data from Step 1 and the parameters from the GEVA Bayesian Inference in step 4. Notebooks for both the [80–20 train-test split](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_D80_D20.ipynb) and the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_Dtot.ipynb) under Model EElev are provided as they do give different geostatistical structures. These return levels are then analysed using several geostatistical techniques, including Ordinary Kriging, Ordinary Cokriging, Intrinsic Collocated Cokriging Markov Model I, and Intrinsic Collocated Cokriging Markov Model II. This involves the construction of variograms, cross-variograms, residual variograms, and a linear model of coregionalization. Using leave-one-out cross-validation (LOO-CV), this step determines which method provides the most robust estimates at unknown locations. Return-level summaries can be found [here under filenames ending in _summary.csv](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs). These are z-standardized, but their associated means and standard deviations are also provided for back-transformation.
+This step involves the computation of return levels for 5, 10, 25, 50, 75, and 100 years using the imputed data from Step 1 and the parameters from the GEVA Bayesian Inference in step 4. Notebooks for both the [80–20 train-test split](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_D80_D20.ipynb) and the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_Dtot.ipynb) under Model EElev are provided as they produce different geostatistical structures. These return levels are then analysed using several geostatistical techniques, including Ordinary Kriging, Ordinary Cokriging, Intrinsic Collocated Cokriging Markov Model I, and Intrinsic Collocated Cokriging Markov Model II. This involves the construction of variograms, cross-variograms, residual variograms, and a linear model of coregionalization. Using leave-one-out cross-validation (LOO-CV), this step determines which method provides the most robust estimates at unknown locations. Return-level summaries can be found [here under filenames ending in _summary.csv](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs). These are z-standardized, but their associated means and standard deviations are also provided for back-transformation.
 
 ### Step 6: GEVA map creation
 
-GEVA maps are created using Ordinary Cokriging and Intrinsic Collocated Cokriging Markov Model II based on return levels derived from the [80–20 train-test Model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_D80_D20.ipynb) and the [full dataset Model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_Dtot.ipynb). The mapped values are provided [here under filenames ending in _summary.csv](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs).
+GEVA maps are created using Ordinary Cokriging and Intrinsic Collocated Cokriging Markov Model II based on return levels derived from the [80–20 train-test Model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_D80_D20.ipynb) and the [full dataset Model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_Dtot.ipynb). The mapped values are provided [here under filenames ending in _map_values.csv](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs).
 
 ![gevgpd_mean](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/mean_gev_gpd_tr10_25_50.png)
 
