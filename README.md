@@ -5,7 +5,7 @@ This repository provides a reproducible workflow for analysing fragmented daily 
 
 In addition to supporting the associated study for Grenada, the repository delivers the first island-wide generalized extreme value analysis of Grenadian rainfall currently assembled in this form, including spatially coherent return-level [maps](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Maps) and associated uncertainty estimates. Although developed for Grenada, the workflow is designed to be transferable to other data-limited regions where rainfall records are sparse, incomplete, and spatially uneven.
 
-All Bayesian Inference Markov Chain Monte Carlo (MCMC) analysis were conducted using the Pythin package [numpyro](https://num.pyro.ai/en/stable/).
+**All Bayesian Inference Markov Chain Monte Carlo (MCMC) analysis were conducted using the Python package [numpyro](https://num.pyro.ai/en/stable/).**
 
 Interactive daily rainfall extreme maps for Grenada are available below:
 
