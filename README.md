@@ -5,6 +5,8 @@ This repository provides a reproducible workflow for analysing fragmented daily 
 
 In addition to supporting the associated study for Grenada, the repository delivers the first island-wide generalized extreme value analysis of Grenadian rainfall currently assembled in this form, including spatially coherent return-level [maps](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Maps) and associated uncertainty estimates. Although developed for Grenada, the workflow is designed to be transferable to other data-limited regions where rainfall records are sparse, incomplete, and spatially uneven.
 
+All Bayesian Inference Markov Chain Monte Carlo (MCMC) analysis were conducted using the Pythin package [numpyro](https://num.pyro.ai/en/stable/).
+
 Interactive daily rainfall extreme maps for Grenada are available below:
 
 1. [ICCK MM2 rainfall extreme maps (GEV and GPD) using the 80–20 train-test spatial correlation model](https://aaronjr474.github.io/rain-corr-geva-bayes/Maps/GEVA_D80_D20_OCCKII.html)
@@ -19,7 +21,7 @@ The raw daily rainfall observations used in this repository were obtained from t
 
 ```
 
-The analysis products generated in this repository for Grenada, including the imputed rainfall dataset, spatial correlation model summaries, extreme rainfall summaries, and mapped outputs, are provided in the [Ouputs](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs) directory. If you use the code, derived outputs, or workflow implemented in this repository, please cite the repository as:
+The analysis products generated in this repository for Grenada, including the imputed rainfall dataset, spatial correlation model summaries, extreme rainfall summaries, and [mapped]((https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Maps)) outputs, are provided in the [Ouputs](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs) directory. If you use the code, derived outputs, or workflow implemented in this repository, please cite the repository as:
 
 ```bash
 
@@ -42,4 +44,75 @@ The analysis products generated in this repository for Grenada, including the im
 
 ## Utilizing the package
 
-The package is broken down into Jupyter notebooks each of which are self-contained and only relies on the helpers: [corr_imput_utilities.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/corr_imput_utilities.py) and [return_levels.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/return_levels.py). 
+The package is broken down into Jupyter notebooks each of which are self-contained and only relies on the helpers: [corr_imput_utilities.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/corr_imput_utilities.py) and [return_levels.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/return_levels.py). In the context of the Grenada application the procedure is broken down as follows:
+
+Step 1: Site-specific correlation analysis, bayesian stationary and non-statinonary spatial correlation model development and data imputation.
+
+There are two notebooks for this step one uses the [80-20 train-test split](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/CORR_IMPUT_D80_D20.ipynb) for the bayesian spatial correlation model development and the other utilizes the [total dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/CORR_IMPUT_Dtot.ipynb). In the case of the latter, the notebook also includes temporaly non-stationary analysis where spatial correlation models are developmed on a per-month basis based on the site-specific correlation structure which exhibited temporal non-stationarity across months. The non-stationary spatial correlation model utilzes elevation as a secondary covariate which in comparison to the deterministic and machine learning based method appears to provide the best results pairs with ordinary kriging (OK). 
+
+Imputed data are provided for the stationary spatial correlation model (Model E) developed on the [80-20 train-test dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELE_FINAL_n6_thr25mm_var0p25.csv) and the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELE_FINAL_n6_thr25mm_var0p25_full.csv) as well as the non-stationary spatial correlation model (Model EElev) for the [80-20 train-test dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELElev_FINAL_n6_thr25mm_var0p25.csv) and the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELElev_FINAL_n6_thr25mm_var0p25_full.csv).
+
+![beforeafterimputation](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/before_After_imputation_grd.png)
+
+Step 2: Peaks-Over-Threshold (POTS) Threshold selection
+
+The [Peaks-Over-Threshold (POTS) Selection notebook](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/POTS_THR_SELEC.ipynb) provides the analysis which was used to select the threshold (u) across all stations. It utilzies the [pyextremes python package](https://georgebv.github.io/pyextremes/) which provides the mean residual life, parameter stability and return level stability plots across [all stations](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs/POTS_PARAMS_STABILITY_PLOTS). The threshold (u) is then selected by systematically reviewing these plots balancing statistical vailidity of the GPD approximation against the need to retain a sufficiently informative exceedance sample for Bayesian Inference. Thresholds and their associated uncertainty can be found [here](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/pots_thresholds.csv) for all 28 stations.
+
+Step 3: Generalized Extreme Value Analysis (GEVA) Priors
+
+The [pirors notebook](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/PRIORS.ipynb) provides an overview of the creation of the weakly informed priors for GEVA including the Generizaled Extreme Value (GEV) and Gener Pareto Distribution (GPD) variants. In essence it utilizes [pyextremes python package](https://georgebv.github.io/pyextremes/) to analytically provide a distribution of the [parameters](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs/PRIORS_POTS_BM) for each station via bootstrapping. These were then used to inform the [final priors](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/PRIORS_POTS_BM/priors.xlsx) to be used in the Bayesian Inference.
+
+Step 4: GEVA Bayesian Inference
+
+[The GEVA Bayesian Inferences](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/GEVA_BAYESMCMC.ipynb) is conducted using the outputs of steps 1 - 3 for the GEV and GPD variants. [Trace plots and summary parameters](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs/BAYES_MCMC) are also provided as outputs to ensure stability of the fit. 
+
+Step 5: GEVA Geostatiscal Analysis using VarioCorreKrigE
+
+This analysis involves the computation of return levels for 5, 10, 25, 50, 75 and 100 years using the imputed data in Step 1 for [80-20 train-test split](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_D80_D20.ipynb) and [full datasets](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_Dtot.ipynb) model EElev. The return levels are then used across geostatistical techniques Ordinary Kriging, Ordinary Cokriging, Intrinsic Collocated Cokriging Markov Model I and Intrinsic Collocated Cokriging Markov Model II which involves the construction of variograms, corss-variograms, residual variograms and linear model of coregionalization. This step via Leave-one-out crossvalidation (LOO-CV) determines which of the method provides the most robust estiamtes at unknown locations. Return level summaries can be found [here under '_summary.csv'](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/gev_full_tr_summary.csv) which are z-standardized but their associated mean and standard deviation are provided for backtransformation.
+
+Step 6: GEVA Map Creation
+
+GEVA maps are created using the Ordinary Cokriging and Intrinsic Collocated Cokriging Markov Model II based on return levels derived from the [80-20 train-test model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_D80_D20.ipynb) and the [full dataset model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_Dtot.ipynb). Map values are presented [here under '_map_vales.csv'](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs).
+
+## Utilizing the repository
+
+The repository is organized around a set of self-contained Jupyter notebooks, each supported primarily by the helper modules [corr_imput_utilities.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/corr_imput_utilities.py) and [return_levels.py](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/return_levels.py). In the context of the Grenada application, the workflow is broken down into the following steps.
+
+### Step 1: Site-specific correlation analysis, Bayesian stationary and non-stationary spatial correlation model development, and data imputation
+
+There are two notebooks for this step. One uses the [80–20 train-test split](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/CORR_IMPUT_D80_D20.ipynb) for Bayesian spatial correlation model development, while the other uses the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/CORR_IMPUT_Dtot.ipynb). In the case of the latter, the notebook also includes temporally non-stationary analysis in which spatial correlation models are developed on a per-month basis, motivated by the site-specific correlation structure which exhibited temporal non-stationarity across months. The non-stationary spatial correlation model uses elevation as a secondary covariate and, when paired with ordinary kriging (OK), appears to provide the strongest performance relative to the deterministic and machine-learning-based methods considered.
+
+Imputed datasets are provided for the stationary spatial correlation model (Model E) developed on the [80–20 train-test dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELE_FINAL_n6_thr25mm_var0p25.csv) and the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELE_FINAL_n6_thr25mm_var0p25_full.csv), as well as for the non-stationary spatial correlation model (Model EElev) for the [80–20 train-test dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELElev_FINAL_n6_thr25mm_var0p25.csv) and the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/GRN_RAINFALL_MODELElev_FINAL_n6_thr25mm_var0p25_full.csv).
+
+![beforeafterimputation](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/before_After_imputation_grd.png)
+
+### Step 2: Peaks-Over-Threshold (POT) threshold selection
+
+The [Peaks-Over-Threshold (POT) Selection notebook](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/POTS_THR_SELEC.ipynb) provides the analysis used to select the threshold, \(u\), across all stations. It uses the [pyextremes Python package](https://georgebv.github.io/pyextremes/), which provides mean residual life, parameter stability, and return-level stability plots across [all stations](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs/POTS_PARAMS_STABILITY_PLOTS). The threshold is then selected by systematically reviewing these plots, balancing the statistical validity of the GPD approximation against the need to retain a sufficiently informative exceedance sample for Bayesian inference. The final thresholds and their associated uncertainty for all 28 stations can be found [here](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/pots_thresholds.csv).
+
+### Step 3: Generalized extreme value analysis (GEVA) priors
+
+The [priors notebook](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/PRIORS.ipynb) provides an overview of the development of the weakly informative priors used in the generalized extreme value analysis, including both the generalized extreme value (GEV) and generalized Pareto distribution (GPD) formulations. In essence, it uses the [pyextremes Python package](https://georgebv.github.io/pyextremes/) to analytically generate distributions of the [parameters](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs/PRIORS_POTS_BM) for each station via bootstrapping. These results were then used to inform the [final priors](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/PRIORS_POTS_BM/priors.xlsx) adopted in the Bayesian inference.
+
+### Step 4: GEVA Bayesian inference
+
+[The GEVA Bayesian inference notebook](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/GEVA_BAYESMCMC.ipynb) carries out the Bayesian fitting for the GEV and GPD variants using the outputs from Steps 1–3. [Trace plots and summary parameters](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs/BAYES_MCMC) are also provided as outputs to demonstrate the stability of the fit.
+
+### Step 5: GEVA geostatistical analysis using VarioCorreKrigE
+
+This step involves the computation of return levels for 5, 10, 25, 50, 75, and 100 years using the imputed data from Step 1 for both the [80–20 train-test split](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_D80_D20.ipynb) and the [full dataset](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_Dtot.ipynb) under Model EElev. These return levels are then analysed using several geostatistical techniques, including Ordinary Kriging, Ordinary Cokriging, Intrinsic Collocated Cokriging Markov Model I, and Intrinsic Collocated Cokriging Markov Model II. This involves the construction of variograms, cross-variograms, residual variograms, and a linear model of coregionalization. Using leave-one-out cross-validation (LOO-CV), this step determines which method provides the most robust estimates at unknown locations. Return-level summaries can be found [here under `_summary.csv`](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/Outputs/gev_full_tr_summary.csv). These are z-standardized, but their associated means and standard deviations are also provided for back-transformation.
+
+### Step 6: GEVA map creation
+
+GEVA maps are created using Ordinary Cokriging and Intrinsic Collocated Cokriging Markov Model II based on return levels derived from the [80–20 train-test Model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_D80_D20.ipynb) and the [full dataset Model EElev](https://github.com/AaronJR474/rain-corr-geva-bayes/blob/main/VarioCorreKrigE_GEVA_MAPS_Dtot.ipynb). The mapped values are provided [here under `_map_values.csv`](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs).
+
+## References
+
+> Bingham, E., Chen, J. P., Jankowiak, M., Obermeyer, F., Pradhan, N., Karaletsos, T., Singh, R., Szerlip, P. A., Horsfall, P., & Goodman, N. D. (2019). Pyro: Deep universal probabilistic programming. Journal of Machine Learning Research, 20(28), 1–6.
+
+> Phan, D., Pradhan, N., & Jankowiak, M. (2019). Composable effects for flexible and accelerated probabilistic programming in NumPyro. arXiv. https://arxiv.org/abs/1912.11554
+
+> Rampersad, A. J. (2026). Variogram, Correlation and Kriging Estimation (VarioCorreKrigE) (v2.0.0). Zenodo. https://doi.org/10.5281/zenodo.19216626
+
+
+
