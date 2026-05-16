@@ -18,7 +18,7 @@ Interactive daily rainfall extreme maps for Grenada are available below:
 The raw daily rainfall observations used in this repository were obtained from the National Water and Sewerage Authority, Grenada (NAWASA) and the Grenada Airports Authority (GAA). The cleaned and curated rainfall archive compiled for this study is referred to as the **Grenada Daily Rainfall Database (GRD DRDB) v1.0**. If you use this dataset, please cite it as:
 
 ```text
-
+Rampersad, A. J., & Zakour, C. M.-C. F. (2026). Grenada Daily Rainfall Database (GRD DRDB) v1.0 (1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19967870
 ```
 
 The analysis products generated in this repository for Grenada, including the imputed rainfall dataset, spatial correlation model summaries, extreme rainfall summaries, and [mapped](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Maps) outputs, are provided in the [Outputs](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs) directory. If you use the code, derived outputs, or workflow implemented in this repository, please cite the repository as:
