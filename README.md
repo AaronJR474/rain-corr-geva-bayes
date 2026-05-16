@@ -84,6 +84,8 @@ GEVA maps are created using Ordinary Cokriging and Intrinsic Collocated Cokrigin
 
 > Bingham, E., Chen, J. P., Jankowiak, M., Obermeyer, F., Pradhan, N., Karaletsos, T., Singh, R., Szerlip, P. A., Horsfall, P., & Goodman, N. D. (2019). Pyro: Deep universal probabilistic programming. Journal of Machine Learning Research, 20(28), 1–6.
 
+> Bodenmann L., Baker J. W., Stojadinovic B. (2023): "Accounting for path and site effects in spatial ground-motion correlation models using Bayesian inference". Natural Hazards Earth System Sciences, 23, 2387–2402, https://doi.org/10.5194/nhess-23-2387-2023
+
 > Phan, D., Pradhan, N., & Jankowiak, M. (2019). Composable effects for flexible and accelerated probabilistic programming in NumPyro. arXiv. https://arxiv.org/abs/1912.11554
 
 > Rampersad, A. J. (2026). Variogram, Correlation and Kriging Estimation (VarioCorreKrigE) (v2.0.0). Zenodo. https://doi.org/10.5281/zenodo.19216626
