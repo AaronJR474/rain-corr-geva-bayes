@@ -90,5 +90,13 @@ GEVA maps are created using Ordinary Cokriging and Intrinsic Collocated Cokrigin
 
 > Rampersad, A. J. (2026). Variogram, Correlation and Kriging Estimation (VarioCorreKrigE) (v2.0.0). Zenodo. https://doi.org/10.5281/zenodo.19216626
 
+## Disclaimer
+
+This project is provided “as is” without any warranties or guarantees of any kind. Use of this code is at your own risk. The authors and contributors are not liable for any damages, data loss, or issues arising from the use, modification, or distribution of this software.
+
+This repository may contain experimental, incomplete, or evolving features. Nothing here should be considered production‑ready unless explicitly stated.
+
+You are responsible for reviewing and complying with all relevant licenses, data‑use agreements, and third‑party dependencies referenced in this project.
+
 
 
