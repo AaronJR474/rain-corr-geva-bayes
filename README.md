@@ -21,9 +21,7 @@ The raw daily rainfall observations used in this repository were obtained from t
 
 The analysis products generated in this repository for Grenada, including the imputed rainfall dataset, spatial correlation model summaries, extreme rainfall summaries, and [mapped](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Maps) outputs, are provided in the [Outputs](https://github.com/AaronJR474/rain-corr-geva-bayes/tree/main/Outputs) directory. If you use the code, derived outputs, or workflow implemented in this repository, please cite the repository as:
 
-```text
-
-```
+> Rampersad, A. J. (2026). rain-corr-geva-bayes: Rainfall Correlation and Generalized Extreme Value Analysis using Bayesian Inference - Application to Grenada (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.20249250
 
 ## Installation
 1. Clone the repository:
