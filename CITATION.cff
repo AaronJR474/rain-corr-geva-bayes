@@ -1,0 +1,52 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  rain-corr-geva-bayes: Rainfall Correlation and Generalized
+  Extreme Value Analysis using Bayesian Inference -
+  Application to Grenada
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Aaron Jerome
+    family-names: Rampersad
+    email: aaron.rampersad@pg.canterbury.ac.nz
+    affiliation: University of Canterbury
+    orcid: 'https://orcid.org/0009-0009-6134-3828'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.20249250
+repository-code: 'https://github.com/AaronJR474/rain-corr-geva-bayes'
+abstract: >-
+  This repository provides a reproducible workflow for
+  analysing fragmented daily rainfall records in
+  data-limited settings, with application to Grenada. It
+  implements a site-specific correlation framework to
+  diagnose the spatial structure and relative
+  non-stationarity of daily rainfall, and uses Bayesian
+  stationary and non-stationary spatial correlation models
+  within ordinary kriging for rainfall imputation. For
+  comparison, simpler deterministic imputation approaches
+  are also evaluated, including nearest-neighbour distance
+  (NND) and inverse-distance weighting (IDW), the latter
+  implemented through a linear radial basis function. The
+  imputed rainfall archive is then used within Bayesian
+  generalized extreme value (GEV) and generalized Pareto
+  (GPD) analyses to estimate rainfall extremes and develop
+  multi-station intensity-duration-frequency (IDF)
+  relationships.
+keywords:
+  - Bayesian inference
+  - spatial correlation modelling
+  - rainfall non-stationarity
+  - data imputation
+  - extreme rainfall
+  - intensity-duration-frequency curves
+  - small island developing states
+  - Grenada
+license: GPL-3.0
+version: 1.0.0
+date-released: '2026-05-17'
