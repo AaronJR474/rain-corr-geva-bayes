@@ -11,7 +11,7 @@ Interactive daily rainfall extreme maps for Grenada are available below:
 
 1. [ICCK MM2 rainfall extreme maps (GEV and GPD) using the 80–20 train-test spatial correlation model](https://aaronjr474.github.io/rain-corr-geva-bayes/Maps/GEVA_D80_D20_OCCKII.html)
 
-2. [ICCK MM2 rainfall extreme maps (GEV and GPD) using the full-dataset spatial correlation model](https://aaronjr474.github.io/rain-corr-geva-bayes/Maps/GEVA_Dtot_OCCKII.html)
+2. [ICCK MM2 rainfall extreme maps (GEV and GPD) using the full-dataset spatial correlation model](https://aaronjr474.github.io/rain-corr-geva-bayes/Maps/GEVA_Dtot_OCCKII.html) (Recommended)
 
 ## How to cite
 
